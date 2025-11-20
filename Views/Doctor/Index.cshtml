@@ -1,0 +1,65 @@
+﻿@model DoctorFilteredListVM
+
+<h1>
+    Doctors
+</h1>
+
+<a asp-controller="Doctor" asp-action="Register">
+    Register
+</a>
+
+<partial name="_Filter" model="Model.Filter" />
+
+<ol>
+    @foreach (var d in Model.Doctors)
+    {
+        <li>
+            <a asp-controller="Doctor" asp-action="Details" asp-route-id="@d.Id">
+                @d.FullName
+            </a>
+
+            <a class="btn btn-primary btn-sm ms-5" asp-controller="Doctor" asp-action="Update" asp-route-id="@d.Id">
+                <i class="bi bi-pencil-square"></i>
+            </a>
+
+            <a class="btn btn-danger btn-sm ms-5 js-btn-delete" data-id="@d.Id">
+                <i class="bi bi-person-x-fill"></i>
+            </a>
+        </li>
+    }
+</ol>
+
+<partial name="_Pagination" model="Model.Filter" />
+
+@section Scripts {
+
+    <script>
+        $(".js-btn-delete").on("click", function () {
+
+            const btn = $(this);
+            const id = $(this).data("id");
+            const isConfirmed = confirm("Are you sure you want to delete this doctor?");
+
+            if (isConfirmed) {
+                $.ajax({
+                    url: "/Doctor/Delete/" + id,
+                    success: function (result) {
+                        btn.parents("li").remove();
+                    },
+                    error: function (xhr, status, error) {
+                        alert("An error occurred while trying to delete the doctor: " + error);
+                    }
+                })
+            }
+        });
+
+        $(".js-page-link").on("click", function () {
+
+            var page = $(this).data("page");
+            $("#doctor-filter-form #Page").val(page);
+            $("#doctor-filter-form").submit();
+
+        });
+    </script>
+
+}

@@ -1,0 +1,26 @@
+@model LoginVM
+
+<form method="post">
+    <h5 class="card-title">
+        Login
+    </h5>
+    <div class="form-floating mb-2">
+        <input class="form-control" asp-for="Email" />
+        <label asp-for="Email"></label>
+        <span class="text-danger" asp-validation-for="Email"></span>
+    </div>
+    <div class="form-floating mb-2">
+        <input class="form-control" asp-for="Password" />
+        <label asp-for="Password"></label>
+        <span class="text-danger" asp-validation-for="Password"></span>
+    </div>
+    
+
+    <button class="btn btn-primary" type="submit">Register</button>
+</form>
+
+@section Scripts {
+
+    <partial name="_ValidationScriptsPartial" />
+
+}
