@@ -1,0 +1,19 @@
+@model AppointmentFilterVM
+
+
+<div class="card">
+    <div class="card-body">
+        <nav>
+            <ul class="pagination pagination-sm">
+                @for (int i = 1; i <= Model.PageCount; i++) {
+                    <li class="page-item @(Model.Page == i ? "active" : "")">
+                        <a class="page-link js-page-link" data-page="@i" href="javascript:;">
+                            @i
+                        </a>
+                    </li>
+                }
+            </ul>
+        </nav>
+    </div>
+</div>
+

@@ -1,7 +1,7 @@
-using ClinicApp.Helpers;
+using ClinicProject.Helpers;
 using System.ComponentModel.DataAnnotations;
 
-namespace ClinicApp.ViewModels {
+namespace ClinicProject.ViewModels {
     public class UserCreateVM {
 
         [EmailAddress]

@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace ClinicApp.ViewModels {
+namespace ClinicProject.ViewModels {
     public class LoginVM {
 
         [EmailAddress]

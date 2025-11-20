@@ -1,4 +1,4 @@
-﻿@using ClinicApp.Helpers
+﻿@using ClinicProject.Helpers
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -33,10 +33,16 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Doctor" asp-action="Index">Doctors</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Appointment" asp-action="Index">Appointments</a>
+                        </li>
                           @if (User.IsInRole(AppRoles.APP_ADMIN.ToString()))
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Auth" asp-action="Create">Create User</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Auth" asp-action="Users">Users</a>
                             </li>
                         }
 

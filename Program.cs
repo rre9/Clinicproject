@@ -1,16 +1,13 @@
 using ClinicProject.Models;
-using ClinicApp.Helpers;
-using ClinicApp.Services;
+using ClinicProject.Helpers;
+using ClinicProject.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-
 var builder = WebApplication.CreateBuilder(args);
-
-
 var connStr = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ClinicContextcs>(options => options.UseSqlServer(connStr));
 
-builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+builder.Services.AddIdentity<AppUser, IdentityRole>()
     .AddEntityFrameworkStores<ClinicContextcs>()
     .AddDefaultTokenProviders();
 
@@ -19,11 +16,9 @@ builder.Services.ConfigureApplicationCookie(options => {
     options.AccessDeniedPath = "/Auth/AccessDenied";
 });
 
-
-// Singleton, Scoped, Transiant
+// Singleton, Scoped, Transient
 builder.Services.AddScoped<DoctorService>();
 builder.Services.AddScoped<AnotherService>();
-
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

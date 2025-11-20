@@ -41,7 +41,7 @@ namespace ClinicProject.ViewModels
                 NationalId = NationalId,
                 LastName = LastName,
                 HireDate = HireDate,
-                
+                SpecialityNum = SpecialityNum
             };
         }
     }

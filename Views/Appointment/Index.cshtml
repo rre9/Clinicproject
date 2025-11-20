@@ -1,0 +1,68 @@
+
+
+@model AppointmentFilteredListVM
+
+<h1>
+    Appointments
+</h1>
+
+<a asp-controller="Appointment" asp-action="Register">
+    Register
+</a>
+
+<partial name="_Filter" model="Model.Filter" />
+
+<ol>
+    @foreach (var a in Model.Appointments)
+    {
+        <li>
+            <a asp-controller="Appointment" asp-action="Details" asp-route-id="@a.Id">
+                @a.FullName
+            </a>
+
+            <a class="btn btn-primary btn-sm ms-5" asp-controller="Appointment" asp-action="Update" asp-route-id="@a.Id">
+                <i class="bi bi-pencil-square"></i>
+            </a>
+
+            <a class="btn btn-danger btn-sm ms-5 js-btn-delete" data-id="@a.Id">
+                <i class="bi bi-trash-fill"></i>
+            </a>
+        </li>
+    }
+</ol>
+
+<partial name="_Pagination" model="Model.Filter" />
+
+@section Scripts {
+
+    <script>
+        $(".js-btn-delete").on("click", function () {
+
+            const btn = $(this);
+            const id = $(this).data("id");
+            const isConfirmed = confirm("Are you sure you want to delete this appointment?");
+
+            if (isConfirmed) {
+                $.ajax({
+                    url: "/Appointment/Delete/" + id,
+                    success: function (result) {
+                        btn.parents("li").remove();
+                    },
+                    error: function (xhr, status, error) {
+                        alert("An error occurred while trying to delete the appointment: " + error);
+                    }
+                })
+            }
+        });
+
+        $(".js-page-link").on("click", function () {
+
+            var page = $(this).data("page");
+            $("#appointment-filter-form #Page").val(page);
+            $("#appointment-filter-form").submit();
+
+        });
+    </script>
+
+}
+

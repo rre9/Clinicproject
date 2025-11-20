@@ -1,0 +1,40 @@
+@model AppointmentUpdateVM
+
+
+<form method="post">
+    <h5 class="card-title">
+        Register Appointment
+    </h5>
+    <div class="form-floating mb-2">
+        <input class="form-control" asp-for="FirstName" />
+        <label asp-for="FirstName"></label>
+
+        <span class="text-danger" asp-validation-for="FirstName"></span>
+    </div>
+    <div class="form-floating mb-2">
+        <input class="form-control" asp-for="HireDate" />
+        <label asp-for="HireDate"></label>
+
+        <span class="text-danger" asp-validation-for="HireDate"></span>
+    </div>
+    <div class="form-floating mb-2">
+        <input class="form-control" asp-for="LastName" />
+        <label asp-for="LastName"></label>
+
+        <span class="text-danger" asp-validation-for="LastName"></span>
+    </div>
+    <div class="form-floating mb-2">
+        <input class="form-control" asp-for="NationalId" />
+        <label asp-for="NationalId"></label>
+
+        <span class="text-danger" asp-validation-for="NationalId"></span>
+    </div>
+
+
+    <button class="btn btn-primary" type="submit">Update</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+

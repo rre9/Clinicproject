@@ -1,0 +1,25 @@
+@model AppointmentVM
+
+<h1>
+    Appointment Details
+</h1>
+
+<h5>
+    Appointment ID: @Model.Id
+</h5>
+<h5>
+    Patient: @Model.PatientName (ID: @Model.PatientId)
+</h5>
+<h5>
+    Doctor: @Model.DoctorName (ID: @Model.DoctorId)
+</h5>
+<h5>
+    Appointment Date: @Model.AppointmentDate
+</h5>
+<h5>
+    Status: @Model.Status
+</h5>
+<p>
+    <strong>Created At:</strong> @Model.CreatedAt
+</p>
+

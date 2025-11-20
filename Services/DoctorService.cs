@@ -1,7 +1,6 @@
 using ClinicProject.Models;
-using ClinicApp.Services;
 
-namespace ClinicApp.Services {
+namespace ClinicProject.Services {
     public class DoctorService {
 
         private static int Count { get; set; }

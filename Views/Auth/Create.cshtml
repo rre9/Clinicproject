@@ -1,41 +1,47 @@
-@using ClinicApp.Helpers
+@using ClinicProject.Helpers
 @model UserCreateVM
 
-<form method="post">
+<form method="post" enctype="multipart/form-data">
     <h5 class="card-title">
         Create User
     </h5>
     <div asp-validation-summary="ModelOnly">
     </div>
+
     <div class="form-floating mb-2">
         <input class="form-control" asp-for="Email" />
         <label asp-for="Email"></label>
         <span class="text-danger" asp-validation-for="Email"></span>
     </div>
+
     <div class="form-floating mb-2">
         <input class="form-control" asp-for="Password" />
         <label asp-for="Password"></label>
         <span class="text-danger" asp-validation-for="Password"></span>
     </div>
+
     <div class="form-floating mb-2">
         <input class="form-control" asp-for="ConfirmPassword" />
         <label asp-for="ConfirmPassword"></label>
         <span class="text-danger" asp-validation-for="ConfirmPassword"></span>
     </div>
+
     <div class="form-floating mb-2">
         <select class="form-select" asp-for="Role" asp-items="new SelectList(Enum.GetNames<AppRoles>())">
-
         </select>
         <label asp-for="Role"></label>
         <span class="text-danger" asp-validation-for="Role"></span>
     </div>
-    
+
+    <div class="form-floating mb-2">
+        <input class="form-control" asp-for="ProfilePicture" type="file" accept=".jpg,.png"/>
+        <label asp-for="ProfilePicture"></label>
+        <span class="text-danger" asp-validation-for="ProfilePicture"></span>
+    </div>
 
     <button class="btn btn-primary" type="submit">Create</button>
 </form>
 
 @section Scripts {
-
     <partial name="_ValidationScriptsPartial" />
-
 }

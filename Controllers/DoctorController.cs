@@ -55,6 +55,17 @@ namespace ClinicProject.Controllers
                 return View(vm);
 
             var d = vm.ToModel();
+            
+            // If SpecialityNum is 0 or not set, use first available speciality
+            if (d.SpecialityNum == 0)
+            {
+                var speciality = _db.Specialities.FirstOrDefault();
+                if (speciality != null)
+                {
+                    d.SpecialityNum = speciality.Code;
+                }
+            }
+
             _db.Doctors.Add(d);
             _db.SaveChanges();
 

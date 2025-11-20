@@ -1,4 +1,4 @@
-namespace ClinicApp
+namespace ClinicProject
 {
     public enum AppRoles
     {

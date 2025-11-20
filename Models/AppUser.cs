@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 
-namespace ClinicApp.Models {
+namespace ClinicProject.Models {
     public class AppUser : IdentityUser {
 
         public byte[]? ProfilePicture { get; set; }

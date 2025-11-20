@@ -1,3 +1,4 @@
+using ClinicProject.Helpers;
 using ClinicProject.Models;
 using ClinicProject.ViewModels;
 using Microsoft.AspNetCore.Authorization;
@@ -17,13 +18,12 @@ namespace ClinicProject.Controllers
             _userManager = userManager;
         }
 
-        // *********** Login (GET) ***********
+        // -------- Login --------
         public IActionResult Login()
         {
             return View();
         }
 
-        // *********** Login (POST) ***********
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginVM vm)
@@ -35,7 +35,7 @@ namespace ClinicProject.Controllers
 
             if (user == null)
             {
-                ModelState.AddModelError("", "Email or password are wrong");
+                ModelState.AddModelError("Email", "Email or password are wrong");
                 return View(vm);
             }
 
@@ -43,35 +43,28 @@ namespace ClinicProject.Controllers
 
             if (!result.Succeeded)
             {
-                ModelState.AddModelError("", "Email or password are wrong");
+                ModelState.AddModelError("Email", "Email or password are wrong");
                 return View(vm);
-            }
-
-            // Redirect based on roles
-            if (await _userManager.IsInRoleAsync(user, "APP_ADMIN") ||
-                await _userManager.IsInRoleAsync(user, "DOCTOR"))
-            {
-                return Redirect("/Doctor");
             }
 
             return Redirect("/");
         }
 
-        // *********** Logout ***********
+        // -------- Logout --------
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
             return Redirect("/");
         }
 
-        // *********** Create User (GET) ***********
+        // -------- Create User (GET) --------
         [Authorize(Roles = "APP_ADMIN")]
         public IActionResult Create()
         {
             return View();
         }
 
-        // *********** Create User (POST) ***********
+        // -------- Create User (POST) --------
         [Authorize(Roles = "APP_ADMIN")]
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -86,19 +79,18 @@ namespace ClinicProject.Controllers
                 UserName = vm.Email.Split("@")[0]
             };
 
-            // Upload Image
             if (vm.ProfilePicture != null && vm.ProfilePicture.Length > 0)
             {
                 if (vm.ProfilePicture.Length > 256 * 1024)
                 {
-                    ModelState.AddModelError("ProfilePicture", "Max image size is 256KB");
+                    ModelState.AddModelError("ProfilePicture", "Max size is 256KB");
                     return View(vm);
                 }
 
-                var allowedTypes = new[] { "image/jpeg", "image/png" };
-                if (!allowedTypes.Contains(vm.ProfilePicture.ContentType))
+                var allowedExt = new string[] { "image/jpg", "image/png", "image/jpeg" };
+                if (!allowedExt.Contains(vm.ProfilePicture.ContentType))
                 {
-                    ModelState.AddModelError("ProfilePicture", "Only JPG and PNG are allowed");
+                    ModelState.AddModelError("ProfilePicture", "Only JPG and PNG images allowed");
                     return View(vm);
                 }
 
@@ -115,15 +107,22 @@ namespace ClinicProject.Controllers
                 return View(vm);
             }
 
-            // Add Role
             result = await _userManager.AddToRoleAsync(user, vm.Role);
             if (!result.Succeeded)
             {
-                ModelState.AddModelError("Role", "Failed to assign role");
+                ModelState.AddModelError("Role", "Failed to add role");
                 return View(vm);
             }
 
             return Redirect("/");
         }
+
+        // -------- Users Table (OPTIONAL like her) --------
+        public async Task<IActionResult> Users()
+        {
+            var users = _userManager.Users.ToList();
+            return View(users);
+        }
+
     }
 }

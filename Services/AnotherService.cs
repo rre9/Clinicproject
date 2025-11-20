@@ -1,4 +1,4 @@
-namespace ClinicApp.Services {
+namespace ClinicProject.Services {
     public class AnotherService {
 
         private static int Count { get; set; }
